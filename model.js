@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var dbConfig = require('./db/DBConfig');
-var userSQL = require('./db/shopsql');
+var shopsql = require('./db/shopsql');
 
 // pool.on('connection', function(connection) {  
 //     connection.query('SET SESSION auto_increment_increment=1'); 
