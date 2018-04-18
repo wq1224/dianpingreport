@@ -1,4 +1,4 @@
 var shopsql = {   
                 queryAll:'select * from dianping'
               };
- module.exports = shopsql
+module.exports = shopsql

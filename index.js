@@ -9,8 +9,11 @@ app.use(express.static('public'));
 //   res.send('Hello World!');
 // });
 app.use('/shops', shops);
+ 
 
-var server = app.listen(3000, function () {
+//model.query(shopsql.queryAll).then();
+
+var server = app.listen(3333, function () {
   var host = server.address().address;
   var port = server.address().port;
 

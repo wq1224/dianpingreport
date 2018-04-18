@@ -7,40 +7,86 @@ var shopsql = require('./db/shopsql');
 // });
 var pool = mysql.createPool( dbConfig.mysql );
 
-function Shop(shop){
-    this.shopid = shop.id
-    this.shopname = shop.shopname
-    this.shoplevel = shop.shoplevel
-    this.shopurl = shop.shopurl
-    this.commentnum = shop.commentnum
-    this.avgcost = shop.avgcost
-    this.taste = shop.taste
-    this.envi = shop.envi
-    this.service = shop.service
-    this.foodtype = shop.foodtype
-    this.loc = shop.loc
-    this.poi = shop.poi
-    this.addr = shop.addr
-    this.label = shop.label
-};
-module.exports = Shop;
+var query = function( sql, values ) {
+  return new Promise(( resolve, reject ) => {
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        reject( err )
+      } else {
+        connection.query(sql, values, ( err, rows) => {
+          if ( err ) {
+            reject( err )
+          } else {
+            resolve( rows )
+          }
+          connection.release()
+        })
+      }
+    })
+  })
+}
 
-pool.getConnection(function(err, connection) {
+var getShops = function(){
+    return query(shopsql.queryAll)
+}
 
-    Shop.getShops = function getShops(callback) {
+var getData = function(result){
+    //
+}
 
-        //var sql = "select * from dianping ";
+module.exports.getShops = getShops
+module.exports.getData = getData
+// async function getData() {
+//   var dataList = await query(shopsql.queryAll)
+//   debugger;
+//   return dataList
+// }
+// module.exports = getData()
+// query(shopsql.queryAll).then(
+//     function(data){ 
+//         module.exports = data
+//         debugger;
+//     }
+// )
 
-        connection.query(shopsql.queryAll, function (err, result) {
-            if (err) {
-                console.log("getUserNumByName Error: " + err.message);
-                return;
-            }
-            connection.release();
+//module.exports = getData()
 
-            console.log("invoked[getShops]");
-            callback(err,result);                     
-        });        
-    };
+// function Shop(shop){
+//     this.shopid = shop.id
+//     this.shopname = shop.shopname
+//     this.shoplevel = shop.shoplevel
+//     this.shopurl = shop.shopurl
+//     this.commentnum = shop.commentnum
+//     this.avgcost = shop.avgcost
+//     this.taste = shop.taste
+//     this.envi = shop.envi
+//     this.service = shop.service
+//     this.foodtype = shop.foodtype
+//     this.loc = shop.loc
+//     this.poi = shop.poi
+//     this.addr = shop.addr
+//     this.label = shop.label
+// };
+// module.exports = Shop;
+
+// function select(sql) { 
+//     var promise = new Promise(function(resolve,reject) { 
+//         pool.getConnection(function(err, connection) {
+
+//             Shop.getShops = function getShops(callback) {
+
+//         //var sql = "select * from dianping ";
+
+//         connection.query(shopsql.queryAll, function (err, result) {
+//             if (err) {
+//                 console.log("getUserNumByName Error: " + err.message);
+//                 return;
+//             }
+//             connection.release();
+
+//             console.log("invoked[getShops]");
+//             callback(err,result);                     
+//         });        
+//     };
  
-});
+// });
