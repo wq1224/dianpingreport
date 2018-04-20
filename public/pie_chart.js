@@ -1,7 +1,7 @@
 var pie_chart_option = {
     title : {
-        text: '某站点用户访问来源',
-        subtext: '纯属虚构',
+        text: 'Type of Restaurants',
+        subtext: 'the type of the restaurants with more than one comment',
         x:'center'
     },
     tooltip : {
