@@ -48,10 +48,9 @@
        <script src="https://cdn.bootcss.com/fullPage.js/2.9.7/vendors/jquery.easings.min.js"></script>
        <script src="https://cdn.bootcss.com/fullPage.js/2.9.7/jquery.fullpage.min.js"></script>
        <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-       <script type="text/javascript" src="map1.js"></script>
-       <script type="text/javascript" src="pie_chart.js"></script>
+       <script src="https://cdn.bootcss.com/lodash.js/4.17.5/lodash.core.min.js"></script>
        <script type="text/javascript">
-        $(function(){
+        //$(function(){
             $('#dowebok').fullpage();
             var map_dom = document.getElementById("map_container");
             var pie_dom = document.getElementById("pie_container");
@@ -59,13 +58,15 @@
             var pie_chart = echarts.init(pie_dom);
             var app = {};
             //option = null;
-            if (map_chart_option && typeof map_chart_option === "object") {
-                map_chart.setOption(map_chart_option, true);
-            }
-            if (pie_chart_option && typeof pie_chart_option === "object") {
-                pie_chart.setOption(pie_chart_option, true);
-            }
-        });
+            // if (map_chart_option && typeof map_chart_option === "object") {
+            //     map_chart.setOption(map_chart_option, true);
+            // }
+            // if (pie_chart_option && typeof pie_chart_option === "object") {
+            //     pie_chart.setOption(pie_chart_option, true);
+            // }
+        //});
        </script>
+       <script type="text/javascript" src="map1.js"></script>
+       <script type="text/javascript" src="pie_chart.js"></script>
    </body>
 </html>

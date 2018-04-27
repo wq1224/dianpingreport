@@ -27,15 +27,15 @@ var query = function( sql, values ) {
 }
 
 var getShops = function(){
-    return query(shopsql.queryAll)
+    return query(shopsql.get_all_shop)
 }
 
-var getData = function(result){
-    //
+var getTypes = function(){
+    return query(shopsql.group_by_type)
 }
 
 module.exports.getShops = getShops
-module.exports.getData = getData
+module.exports.getTypes = getTypes
 // async function getData() {
 //   var dataList = await query(shopsql.queryAll)
 //   debugger;
