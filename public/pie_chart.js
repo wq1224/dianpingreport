@@ -1,5 +1,9 @@
 $.getJSON("shops/getAllTypes").done(function( type_result ) {
+    type_result.data.sort(function(a,b){
+        return a.value > b.value;
+    });
     var pie_chart_option = {
+        color: ['#ff9340','#FFB073', '#BF8E30', '#A66D00', '#FF6F00','#FFA700',  '#BF6E30', '#A64800','#FFBD40', '#FFCF73', '#FD3F49',"#FD7279","#BC2F36","#A30008"],
         title : {
             text: 'Type of Restaurants',
             subtext: 'the type of the restaurants with more than one comment',
@@ -16,16 +20,35 @@ $.getJSON("shops/getAllTypes").done(function( type_result ) {
         },
         series : [
             {
-                name: '访问来源',
+                name: 'type',
                 type: 'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
+                radius : ['50%', '70%'],
+                //center: ['50%', '60%'],
                 data: type_result.data.map( x => {x["name"] = x.foodtype; return x}),
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
                         shadowOffsetX: 0,
                         shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
                     }
                 }
             }
