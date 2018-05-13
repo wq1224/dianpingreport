@@ -49,21 +49,21 @@
             <!--<h1> Restaurant Location </h1>-->
             <div id="map_container" class="item" style="height: 100%"></div>
         </div>
-        <div id="section5" class="section">
+<!--         <div id="section5" class="section">
             <h1> Restaurant Label </h1>
             <div  class="item" style="height: 100%"></div>
-        </div>
+        </div> -->
         <div id="section6" class="section">
             <h1> Demand</h1>
             <div class="row">
               <div class="col-md-6">
                 <h2>Working Lunch</h2>
                 <h4>Snack,Fast food</h4>
-                <h4>fast, easy to be full, cost effective</h4>
+                <h4>fast, easy to be full, cost effective, SAP vendor</h4>
               </div>
               <div class="col-md-6">
                 <h2>Date</h2>
-                <h4>Wstern food, Japanese food, Cantonese cuisine, some Southeast Asian cuisine</h4>
+                <h4>Western-style food, Japanese food, Cantonese cuisine, some Southeast Asian cuisine</h4>
                 <h4>delicate food, romantic/private environment</h4>
               </div>
             </div>
@@ -81,14 +81,15 @@
             </div>
         </div>
         <div id="section_work_lunch" class="section">
-          <div class="col-md-4">
+          <div class="col-md-4" style="height: 100%">
                 <h2>Working Lunch</h2>
-                <h3>左庭右院</h3>
-                <h4>fast, easy to be full, cost effective</h4>
-              </div>
-              <div class="col-md-8">
-                <div id="map_work_lunch" class="item" style="height: 100%"></div>
-              </div>    
+                <div id="work_lunch_list">
+                  <h3>左庭右院</h3>
+                  <h4>fast, easy to be full, cost effective</h4>
+                </div>
+          </div>
+          <div class="col-md-8" id="map_work_lunch" class="item" style="height: 100%">
+          </div>    
         </div>
         <!--<div class="section">
             <div class="slide">第三屏的第一屏</div>
@@ -123,7 +124,7 @@
             var map_date_dom = document.getElementById("map_date");
             var map_chart = echarts.init(map_dom);
             var pie_chart = echarts.init(pie_dom);
-            //var map_work_lunch = echarts.init(map_work_lunch_dom);
+            var map_work_lunch = echarts.init(map_work_lunch_dom);
             //var map_formal = echarts.init(map_formal_dom);
             //var map_informal = echarts.init(map_informal_dom);
             //var map_date = echarts.init(map_date_dom);

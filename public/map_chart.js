@@ -17,28 +17,21 @@ function map_tx2bd(seat){
     return [bd_lon,bd_lat];
 };
 
-
-
-$.getJSON("shops/getAllShops").done(function( shop_result ) {
-    result = shop_result.data
-    max = result[0].level*result[0].commentnum
-    min = result[result.length-1].level*result[result.length-1].commentnum
-    temp = max - min
-    result.forEach(data_change)
-    function data_change(item,index,arr) {
-        item["name"]  = item.shopname;
-        item["value"] = map_tx2bd(item.poi.split(',').reverse())
-        pri = item.level*item.commentnum
-        nor = (pri - min)/temp
-        item["value"].push(nor);
+function gen_html_code(items){
+    html = ""
+    for (i in items){
+        html+="<div class='shop'>"
+        html+="<h4>" + items[i].shopname + "</h4>"
+        // html+="<p>type: " + trans[items[i].foodtype] + "</p>"
+        // html+="<p>level: " + items[i].level + "</p>"
+        // html+="<p>comment number: " + items[i].commentnum + "</p>"
+        // html+="<p>average: " + items[i].avgcost + "</p>" 
+        html+="</div>"
     }
+    return html
+}
 
-    // var map_chart_option = _.cloneDeep(common_option)
-    // map_chart_option.title["text"] = "Restaurant Location"
-    // map_chart_option.title["subtext"] = "data from dianping"
-    // map_chart_option.series["data"] = result
-
-var map_chart_option = {
+var common_option = {
     backgroundColor: 'rgba(64, 74, 89,0.7)',
     title: {
         //text: 'Restaurant Location',
@@ -62,7 +55,7 @@ var map_chart_option = {
         {
             type: 'effectScatter',
             coordinateSystem: 'bmap',
-            data: result,
+            //data: result,
             // symbolSize: function (val) {
             //     return val[2]*50;
             // },
@@ -83,22 +76,80 @@ var map_chart_option = {
                     color: '#ddb926'
                 }
             }
+        },
+        {
+            type: 'effectScatter',
+            coordinateSystem: 'bmap',
+            //data: result,
+            // symbolSize: function (val) {
+            //     return val[2]*50;
+            // },
+            showEffectOn: 'emphasis',
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            hoverAnimation: true,
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: false
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#dd6e26'
+                }
+            }
         }
     ]
 };
-    if (map_chart_option && typeof map_chart_option === "object") {
-        map_chart.setOption(map_chart_option, true);
+
+$.getJSON("shops/getAllShops").done(function( shop_result ) {
+    result = shop_result.data
+    max = result[0].level*result[0].commentnum
+    min = result[result.length-1].level*result[result.length-1].commentnum
+    temp = max - min
+    result.forEach(data_change)
+    function data_change(item,index,arr) {
+        item["name"]  = item.shopname;
+        item["value"] = map_tx2bd(item.poi.split(',').reverse())
+        pri = item.level*item.commentnum
+        nor = (pri - min)/temp
+        item["value"].push(nor);
     }
 
-    // var map_work_lunch_option = _.cloneDeep(common_option)
-    // map_work_lunch_option.title["text"] = "Working Lunch"
-    // map_work_lunch_option.title["subtext"] = "data from dianping"
-    // map_work_lunch_option.series["data"] = result
-    // map_work_lunch_option.series["symbolSize"] = function (val) {
-    //     return val[2]*50;
-    // }
+    var map_chart_option = _.cloneDeep(common_option)
+    map_chart_option.title["text"] = "Restaurant Location"
+    map_chart_option.title["subtext"] = "data from dianping"
+    map_chart_option.series[0]["data"] = result
 
-    // if (map_work_lunch_option && typeof map_work_lunch_option === "object") {
-    //     map_work_lunch.setOption(map_work_lunch_option, true);
-    // }
+    if (map_chart_option && typeof map_chart_option === "object") {
+        map_chart.setOption(map_chart_option, false);
+    }
+
+    //-------------------------------------------------
+
+    function filter_work_lunch_1(item) {
+        return item.foodtype == "小吃快餐" && item.isVendor == 1
+    }
+
+    function filter_work_lunch_2(item) {
+        return item.foodtype != "小吃快餐" && item.isVendor == 1 && item.label.indexOf("工作餐") != -1
+    }
+
+    work_lunch1 = result.filter(filter_work_lunch_1)
+    work_lunch2 = result.filter(filter_work_lunch_2)
+    
+    $("#work_lunch_list").html(gen_html_code(work_lunch1))
+
+    var map_work_lunch_option = _.cloneDeep(common_option)
+    map_work_lunch_option.series[0]["data"] = work_lunch1
+    map_work_lunch_option.series[1]["data"] = work_lunch2
+
+    if (map_work_lunch_option && typeof map_work_lunch_option === "object") {
+        map_work_lunch.setOption(map_work_lunch_option, false);
+    }
+
+    //------------------------------------------------
 });

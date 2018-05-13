@@ -1,3 +1,27 @@
+var trans = {
+    '其他美食':'other',
+    '台湾菜':'Taiwan Cuisine',
+    '日本菜':'Japanese Food',
+    '粤菜':'Cantonese Cuisine',
+    '本帮江浙菜':'Shanghai Local Cuisine',
+    '蟹宴':'Crab Dish',
+    '海鲜':'Seafood',
+    '西北菜':'Northwest Cuisine',
+    '小吃快餐':'Snack, Fast Food',
+    '韩国料理':'Korean Food',
+    '西餐':'Western-style Food',
+    '咖啡厅':'Cafe',
+    '面包甜点':'Bread, Dessert',
+    '东南亚菜':'Southeast Asian cuisine',
+    '川菜':'Sichuan Cuisine',
+    '湘菜':'Hunan Cuisine',
+    '烧烤':'BBQ',
+    '火锅':'Hotpot',
+    '素菜':'Vegetable Dish',
+    '云南菜':'Yunnan Cuisine',
+    '自助餐':'Buffet',
+    '小龙虾':'Crayfish'
+};
 $.getJSON("shops/getAllTypes").done(function( type_result ) {
     // type_result.data.sort(function(a,b){
     //     return a.value > b.value;
@@ -20,7 +44,7 @@ $.getJSON("shops/getAllTypes").done(function( type_result ) {
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: type_result.data.map( x => x.foodtype)
+            data: type_result.data.map( x => trans[x.foodtype])
         },
         series : [
             {
@@ -28,7 +52,7 @@ $.getJSON("shops/getAllTypes").done(function( type_result ) {
                 type: 'pie',
                 radius : ['50%', '70%'],
                 //center: ['50%', '60%'],
-                data: type_result.data.map( x => {x["name"] = x.foodtype; return x}),
+                data: type_result.data.map( x => {x["name"] = trans[x.foodtype]; return x}),
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
