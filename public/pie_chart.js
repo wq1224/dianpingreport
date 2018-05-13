@@ -1,13 +1,17 @@
 $.getJSON("shops/getAllTypes").done(function( type_result ) {
-    type_result.data.sort(function(a,b){
-        return a.value > b.value;
-    });
+    // type_result.data.sort(function(a,b){
+    //     return a.value > b.value;
+    // });
     var pie_chart_option = {
         color: ['#ff9340','#FFB073', '#BF8E30', '#A66D00', '#FF6F00','#FFA700',  '#BF6E30', '#A64800','#FFBD40', '#FFCF73', '#FD3F49',"#FD7279","#BC2F36","#A30008"],
         title : {
-            text: 'Type of Restaurants',
+            text: 'Restaurant Types',
             subtext: 'the type of the restaurants with more than one comment',
-            x:'center'
+            x:'center',
+            textStyle: {
+                color: '#f63',
+                fontSize: 40
+            }
         },
         tooltip : {
             trigger: 'item',

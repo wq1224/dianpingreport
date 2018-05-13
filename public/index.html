@@ -2,14 +2,29 @@
 <html style="height: 100%">
    <head>
        <meta charset="utf-8">
+       <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
        <link rel="stylesheet" href="https://cdn.bootcss.com/fullPage.js/2.9.7/jquery.fullpage.min.css">
        <style type="text/css">
-       #section1{
+       #section1, #section2, #section6{
         background: #f63;
+       }
+       #section3{
+        padding: 40px 0 0 0;
        }
        h1{
          text-align: center;
+         font-size: 48px;
+         color: white;
+       }
+       #section3 h1{
+         text-align: center;
+         font-size: 48px;
+         color: #f63;
+       }
+       #section6{
+         padding: 0px 40px;
+         text-align: left;
          font-size: 48px;
          color: white;
        }
@@ -23,19 +38,65 @@
         <div id="section1" class="section">
             <h1>What to eat today?</h1>
         </div>
-        <div class="section">
-            <div id="pie_container" class="item active" style="height: 100%"></div>
+        <div id="section2" class="section">
+            <h1>Overview</h1>
         </div>
-        <div class="section">
+        <div id="section3" class="section">
+            <!--<h1> Restaurant Type </h1>-->
+            <div id="pie_container" class="item" style="height: 100%"></div>
+        </div>
+        <div id="section4" class="section">
+            <!--<h1> Restaurant Location </h1>-->
             <div id="map_container" class="item" style="height: 100%"></div>
         </div>
-        <div class="section">
+        <div id="section5" class="section">
+            <h1> Restaurant Label </h1>
+            <div  class="item" style="height: 100%"></div>
+        </div>
+        <div id="section6" class="section">
+            <h1> Demand</h1>
+            <div class="row">
+              <div class="col-md-6">
+                <h2>Working Lunch</h2>
+                <h4>Snack,Fast food</h4>
+                <h4>fast, easy to be full, cost effective</h4>
+              </div>
+              <div class="col-md-6">
+                <h2>Date</h2>
+                <h4>Wstern food, Japanese food, Cantonese cuisine, some Southeast Asian cuisine</h4>
+                <h4>delicate food, romantic/private environment</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h2>Formal gathering</h2>
+                <h4>Chinese local cuisine(Cantonese,Shanghai,Sichuan etc)</h4>
+                <h4>well decordation, comfortable environment, seats for enough people(better for round table)</h4>
+              </div>
+              <div class="col-md-6">
+                <h2>Informal gathering</h2>
+                <h4>No specific type</h4>
+                <h4>good public reputation, cost effective, distinguishing features</h4>
+              </div>
+            </div>
+        </div>
+        <div id="section_work_lunch" class="section">
+          <div class="col-md-4">
+                <h2>Working Lunch</h2>
+                <h3>左庭右院</h3>
+                <h4>fast, easy to be full, cost effective</h4>
+              </div>
+              <div class="col-md-8">
+                <div id="map_work_lunch" class="item" style="height: 100%"></div>
+              </div>    
+        </div>
+        <!--<div class="section">
             <div class="slide">第三屏的第一屏</div>
             <div class="slide"><div id="pie_container" style="height: 100%"></div></div>
             <div class="slide">第三屏的第三屏</div>
             <div class="slide">第三屏的第四屏</div>
         </div>
-        <div class="section">第四屏</div>
+        <div class="section">第四屏</div>-->
     </div>
         <!--<div id="container" class="item active" style="height: 100%"></div>-->
        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
@@ -51,14 +112,21 @@
        <script src="https://cdn.bootcss.com/fullPage.js/2.9.7/vendors/jquery.easings.min.js"></script>
        <script src="https://cdn.bootcss.com/fullPage.js/2.9.7/jquery.fullpage.min.js"></script>
        <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-       <script src="https://cdn.bootcss.com/lodash.js/4.17.5/lodash.core.min.js"></script>
        <script type="text/javascript">
         //$(function(){
             $('#dowebok').fullpage();
             var map_dom = document.getElementById("map_container");
             var pie_dom = document.getElementById("pie_container");
+            var map_work_lunch_dom = document.getElementById("map_work_lunch");
+            var map_formal_dom = document.getElementById("map_formal");
+            var map_informal_dom = document.getElementById("map_informal");
+            var map_date_dom = document.getElementById("map_date");
             var map_chart = echarts.init(map_dom);
             var pie_chart = echarts.init(pie_dom);
+            //var map_work_lunch = echarts.init(map_work_lunch_dom);
+            //var map_formal = echarts.init(map_formal_dom);
+            //var map_informal = echarts.init(map_informal_dom);
+            //var map_date = echarts.init(map_date_dom);
             var app = {};
             //option = null;
             // if (map_chart_option && typeof map_chart_option === "object") {
@@ -69,7 +137,7 @@
             // }
         //});
        </script>
-       <script type="text/javascript" src="map1.js"></script>
+       <script type="text/javascript" src="map_chart.js"></script>
        <script type="text/javascript" src="pie_chart.js"></script>
    </body>
 </html>
