@@ -6,7 +6,8 @@
        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
        <link rel="stylesheet" href="https://cdn.bootcss.com/fullPage.js/2.9.7/jquery.fullpage.min.css">
        <style type="text/css">
-       #section1, #section2, #section6{
+       #section1, #section2, #section6, 
+       #section_work_lunch,#section_formal,#section_informal,#section_date{
         background: #f63;
        }
        #section3{
@@ -26,6 +27,10 @@
          padding: 0px 40px;
          text-align: left;
          font-size: 48px;
+         color: white;
+       }
+       #section_work_lunch,#section_formal,#section_work_informal,#section_date{
+         text-align: left;
          color: white;
        }
        #pie_container{
@@ -84,11 +89,36 @@
           <div class="col-md-4" style="height: 100%">
                 <h2>Working Lunch</h2>
                 <div id="work_lunch_list">
-                  <h3>左庭右院</h3>
-                  <h4>fast, easy to be full, cost effective</h4>
                 </div>
           </div>
           <div class="col-md-8" id="map_work_lunch" class="item" style="height: 100%">
+          </div>    
+        </div>
+        <div id="section_formal" class="section">
+          <div class="col-md-4" style="height: 100%">
+                <h2>Formal Gathering</h2>
+                <div id="formal_list">
+                </div>
+          </div>
+          <div class="col-md-8" id="map_formal" class="item" style="height: 100%">
+          </div>    
+        </div>
+        <div id="section_informal" class="section">
+          <div class="col-md-4" style="height: 100%">
+                <h2>Informal Gathering</h2>
+                <div id="informal_list">
+                </div>
+          </div>
+          <div class="col-md-8" id="map_informal" class="item" style="height: 100%">
+          </div>    
+        </div>
+        <div id="section_date" class="section">
+          <div class="col-md-4" style="height: 100%">
+                <h2>Date</h2>
+                <div id="date_list">
+                </div>
+          </div>
+          <div class="col-md-8" id="map_date" class="item" style="height: 100%">
           </div>    
         </div>
         <!--<div class="section">
@@ -125,9 +155,9 @@
             var map_chart = echarts.init(map_dom);
             var pie_chart = echarts.init(pie_dom);
             var map_work_lunch = echarts.init(map_work_lunch_dom);
-            //var map_formal = echarts.init(map_formal_dom);
-            //var map_informal = echarts.init(map_informal_dom);
-            //var map_date = echarts.init(map_date_dom);
+            var map_formal = echarts.init(map_formal_dom);
+            var map_informal = echarts.init(map_informal_dom);
+            var map_date = echarts.init(map_date_dom);
             var app = {};
             //option = null;
             // if (map_chart_option && typeof map_chart_option === "object") {

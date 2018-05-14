@@ -21,7 +21,8 @@ function gen_html_code(items){
     html = ""
     for (i in items){
         html+="<div class='shop'>"
-        html+="<h4>" + items[i].shopname + "</h4>"
+        seq = parseInt(i) + 1
+        html+="<h4>" + seq + ". " + items[i].shopname + "</h4>"
         // html+="<p>type: " + trans[items[i].foodtype] + "</p>"
         // html+="<p>level: " + items[i].level + "</p>"
         // html+="<p>comment number: " + items[i].commentnum + "</p>"
@@ -152,4 +153,54 @@ $.getJSON("shops/getAllShops").done(function( shop_result ) {
     }
 
     //------------------------------------------------
+
+    function filter_formal(item) {
+        return item.avgcost >= 80 && item.label.indexOf("请客") != -1 && ["粤菜","西餐","日本菜","湘菜","云南菜","其他美食"].includes(item.foodtype)
+        
+    }
+
+    formal = result.filter(filter_formal)
+    
+    $("#formal_list").html(gen_html_code(formal))
+
+    var map_formal_option = _.cloneDeep(common_option)
+    map_formal_option.series[0]["data"] = formal
+
+    if (map_formal_option && typeof map_formal_option === "object") {
+        map_formal.setOption(map_formal_option, false);
+    }
+
+    //------------------------------------------------
+
+    // function filter_informal(item) {
+    //     return item.label.indexOf("请客") != -1 && ["粤菜","本帮江浙菜","川菜","湘菜","云南菜","其他美食"].includes(item.foodtype)
+    // }
+
+    //informal = result.filter(filter_informal)
+    informal = result.slice(0,15)
+    $("#informal_list").html(gen_html_code(informal))
+
+    var map_informal_option = _.cloneDeep(common_option)
+    map_informal_option.series[0]["data"] = informal
+
+    if (map_informal_option && typeof map_informal_option === "object") {
+        map_informal.setOption(map_informal_option, false);
+    }
+
+    //------------------------------------------------
+    function filter_date(item) {
+        return item.avgcost >= 80 && ["粤菜","本帮江浙菜","东南亚菜"].includes(item.foodtype)
+    }
+
+    date = result.filter(filter_date)
+    
+    $("#date_list").html(gen_html_code(date))
+
+    var map_date_option = _.cloneDeep(common_option)
+    map_date_option.series[0]["data"] = date
+
+    if (map_date_option && typeof map_date_option === "object") {
+        map_date.setOption(map_date_option, false);
+    }
+
 });
