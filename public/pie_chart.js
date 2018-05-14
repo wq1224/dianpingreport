@@ -38,7 +38,6 @@ $.getJSON("shops/getAllTypes").done(function( type_result ) {
             }
         },
         tooltip : {
-            trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
@@ -62,6 +61,7 @@ $.getJSON("shops/getAllTypes").done(function( type_result ) {
                 },
                 avoidLabelOverlap: false,
                 label: {
+                    formatter: "{a} <br/>{b} : {c} ({d}%)",
                     normal: {
                         show: false,
                         position: 'center'

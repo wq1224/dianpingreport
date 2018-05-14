@@ -17,16 +17,18 @@ function map_tx2bd(seat){
     return [bd_lon,bd_lat];
 };
 
+var order_number = 12
+
 function gen_html_code(items){
     html = ""
     for (i in items){
         html+="<div class='shop'>"
         seq = parseInt(i) + 1
         html+="<h4>" + seq + ". " + items[i].shopname + "</h4>"
-        // html+="<p>type: " + trans[items[i].foodtype] + "</p>"
-        // html+="<p>level: " + items[i].level + "</p>"
-        // html+="<p>comment number: " + items[i].commentnum + "</p>"
-        // html+="<p>average: " + items[i].avgcost + "</p>" 
+        html+="<p><span>score: " + items[i].level + "</span>"
+        html+="<span>comment number: " + items[i].commentnum + "</span>"
+        html+="<span>average: " + items[i].avgcost + "</span>" 
+        html+="<span>type: " + trans[items[i].foodtype] + "</span></p>"
         html+="</div>"
     }
     return html
@@ -44,7 +46,8 @@ var common_option = {
         }
     },
     tooltip : {
-        trigger: 'item'
+        trigger: 'item',
+        formatter: '{b}'
     },
     bmap: {
         center: map_tx2bd([121.600989,31.204269]),
@@ -132,21 +135,21 @@ $.getJSON("shops/getAllShops").done(function( shop_result ) {
     //-------------------------------------------------
 
     function filter_work_lunch_1(item) {
-        return item.foodtype == "小吃快餐" && item.isVendor == 1
+        return (item.foodtype == "小吃快餐") && item.isVendor == 1
     }
 
     function filter_work_lunch_2(item) {
         return item.foodtype != "小吃快餐" && item.isVendor == 1 && item.label.indexOf("工作餐") != -1
     }
 
-    work_lunch1 = result.filter(filter_work_lunch_1)
+    work_lunch1 = result.filter(filter_work_lunch_1).slice(0,order_number)
     work_lunch2 = result.filter(filter_work_lunch_2)
     
     $("#work_lunch_list").html(gen_html_code(work_lunch1))
 
     var map_work_lunch_option = _.cloneDeep(common_option)
     map_work_lunch_option.series[0]["data"] = work_lunch1
-    map_work_lunch_option.series[1]["data"] = work_lunch2
+    map_work_lunch_option.series[0].label.normal.show = true
 
     if (map_work_lunch_option && typeof map_work_lunch_option === "object") {
         map_work_lunch.setOption(map_work_lunch_option, false);
@@ -155,16 +158,17 @@ $.getJSON("shops/getAllShops").done(function( shop_result ) {
     //------------------------------------------------
 
     function filter_formal(item) {
-        return item.avgcost >= 80 && item.label.indexOf("请客") != -1 && ["粤菜","西餐","日本菜","湘菜","云南菜","其他美食"].includes(item.foodtype)
+        return item.avgcost >= 100 && item.label.indexOf("请客") != -1 && ["粤菜","本帮江浙菜","川菜","湘菜","其他美食"].includes(item.foodtype)
         
     }
 
-    formal = result.filter(filter_formal)
+    formal = result.filter(filter_formal).slice(0,order_number)
     
     $("#formal_list").html(gen_html_code(formal))
 
     var map_formal_option = _.cloneDeep(common_option)
     map_formal_option.series[0]["data"] = formal
+    map_formal_option.series[0].label.normal.show = true
 
     if (map_formal_option && typeof map_formal_option === "object") {
         map_formal.setOption(map_formal_option, false);
@@ -177,11 +181,12 @@ $.getJSON("shops/getAllShops").done(function( shop_result ) {
     // }
 
     //informal = result.filter(filter_informal)
-    informal = result.slice(0,15)
+    informal = result.slice(0,order_number)
     $("#informal_list").html(gen_html_code(informal))
 
     var map_informal_option = _.cloneDeep(common_option)
     map_informal_option.series[0]["data"] = informal
+    map_informal_option.series[0].label.normal.show = true
 
     if (map_informal_option && typeof map_informal_option === "object") {
         map_informal.setOption(map_informal_option, false);
@@ -189,15 +194,16 @@ $.getJSON("shops/getAllShops").done(function( shop_result ) {
 
     //------------------------------------------------
     function filter_date(item) {
-        return item.avgcost >= 80 && ["粤菜","本帮江浙菜","东南亚菜"].includes(item.foodtype)
+        return item.avgcost >= 80 && ["粤菜","西餐","日本菜","东南亚菜"].includes(item.foodtype)
     }
 
-    date = result.filter(filter_date)
+    date = result.filter(filter_date).slice(0,order_number)
     
     $("#date_list").html(gen_html_code(date))
 
     var map_date_option = _.cloneDeep(common_option)
     map_date_option.series[0]["data"] = date
+    map_date_option.series[0].label.normal.show = true
 
     if (map_date_option && typeof map_date_option === "object") {
         map_date.setOption(map_date_option, false);
